@@ -1,5 +1,6 @@
 package com.medranosystems.vatscan;
 
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -10,9 +11,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, AsyncResponse {
 
     private GoogleMap mMap;
+    public static final String URL = "http://data.vattastic.com/vatsim-data.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +39,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        LatLng oregon = new LatLng(45.55, -122.65);
+        PullData pullData = new PullData();
+        pullData.delegate = this;
+        pullData.execute(URL);
 
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.addMarker(new MarkerOptions().position(oregon).title("Marker in Oregon"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(oregon));
+        // Add a marker in Sydney and move the camera
+        LatLng testLocation = new LatLng(45.55, -122.65);
+
+        mMap.addMarker(new MarkerOptions().position(testLocation).title("Test Marker"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(testLocation));
+    }
+
+    @Override
+    public void processFinish(String output){
+        System.out.println("Size: " + output.length());
+        System.out.println(output);
     }
 }

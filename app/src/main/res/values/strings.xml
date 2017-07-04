@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">VatScan</string>
-    <string name="title_activity_maps">Live Map</string>
+    <string name="title_activity_maps">VatScan</string>
 </resources>
