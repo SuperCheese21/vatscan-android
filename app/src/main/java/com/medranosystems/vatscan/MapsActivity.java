@@ -42,17 +42,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         PullData pullData = new PullData();
         pullData.delegate = this;
         pullData.execute(URL);
-
-        // Add a marker in Sydney and move the camera
-        LatLng testLocation = new LatLng(45.55, -122.65);
-
-        mMap.addMarker(new MarkerOptions().position(testLocation).title("Test Marker"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(testLocation));
     }
 
     @Override
     public void processFinish(String output){
         System.out.println("Size: " + output.length());
-        System.out.println(output);
+
+        displayData(output);
+    }
+
+    private void displayData(String rawData) {
+        System.out.println("displayData()");
+        String[][] data;
+        DisplayData display = new DisplayData();
+
+        data = display.parseData(rawData);
+        display.addMarkers(data, mMap);
     }
 }
