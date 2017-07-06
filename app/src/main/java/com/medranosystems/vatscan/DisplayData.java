@@ -25,16 +25,18 @@ public class DisplayData {
     }
 
     public static void addMarkers(String[][] data, GoogleMap mMap) {
-        for (int i = 0; i < data.length; i++) {
-            String callsign = data[i][0];
+        for (String[] s : data) {
+            if (s[5] != "" && s[6] != "") {
+                String callsign = s[0];
 
-            final double lat = Double.parseDouble(data[i][5]);
-            final double lon = Double.parseDouble(data[i][6]);
+                double lat = Double.parseDouble(s[5]);
+                double lon = Double.parseDouble(s[6]);
 
-            System.out.println("Callsign: " + callsign + ", lat: " + lat + ", lon: " + lon);
+                //System.out.println("Callsign: " + callsign + ", lat: " + lat + ", lon: " + lon);
 
-            LatLng location = new LatLng(lat, lon);
-            mMap.addMarker(new MarkerOptions().position(location).title(callsign));
+                LatLng location = new LatLng(lat, lon);
+                mMap.addMarker(new MarkerOptions().position(location).title(callsign));
+            }
         }
     }
 }

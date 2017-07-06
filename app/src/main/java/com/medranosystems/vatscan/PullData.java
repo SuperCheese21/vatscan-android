@@ -1,6 +1,8 @@
 package com.medranosystems.vatscan;
 
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,6 +16,11 @@ import java.net.URLConnection;
 public class PullData extends AsyncTask<String, Integer, String> {
 
     public AsyncResponse delegate = null;
+    private ProgressBar mProgressBar;
+
+    public PullData(ProgressBar p){
+        this.mProgressBar = p;
+    }
 
     // Do the long-running work in here
     protected String doInBackground(String... s) {
@@ -38,11 +45,19 @@ public class PullData extends AsyncTask<String, Integer, String> {
         return contents;
     }
 
+    @Override
+    protected void onPreExecute() {
+    }
+
     // This is called each time you call publishProgress()
+    @Override
     protected void onProgressUpdate(Integer... progress) {
     }
 
+    @Override
     protected void onPostExecute(String s) {
+        System.out.println("View.GONE");
+        mProgressBar.setVisibility(View.GONE);
         delegate.processFinish(s);
     }
 }

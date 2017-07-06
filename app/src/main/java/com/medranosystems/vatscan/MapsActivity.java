@@ -1,20 +1,29 @@
 package com.medranosystems.vatscan;
 
-import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ProgressBar;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, AsyncResponse {
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, AsyncResponse {
 
     private GoogleMap mMap;
-    public static final String URL = "http://data.vattastic.com/vatsim-data.txt";
+    ProgressBar mProgressBar;
+    public static final String[] URLS = {
+            "http://info.vroute.net/vatsim-data.txt",
+            "http://data.vattastic.com/vatsim-data.txt",
+            "http://vatsim.aircharts.org/vatsim-data.txt",
+            "http://vatsim-data.hardern.net/vatsim-data.txt",
+            "http://wazzup.flightoperationssystem.com/vatsim/vatsim-data.txt"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        mProgressBar = (ProgressBar) findViewById(R.id.loadProgress);
     }
 
     /**
@@ -38,10 +48,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        Timer t = new Timer();
 
-        PullData pullData = new PullData();
-        pullData.delegate = this;
-        pullData.execute(URL);
+        t.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mProgressBar.setVisibility(View.VISIBLE);
+                    }
+                });
+                updateData();
+            }
+        }, 0, 30000);
+    }
+
+    private void updateData() {
+        int rand = ThreadLocalRandom.current().nextInt(0, URLS.length);
+
+        System.out.println("Data server: " + URLS[rand]);
+
+        PullData mPullData = new PullData(mProgressBar);
+        mPullData.delegate = this;
+        mPullData.execute(URLS[rand]);
     }
 
     @Override
@@ -57,6 +87,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         DisplayData display = new DisplayData();
 
         data = display.parseData(rawData);
+
+        mMap.clear();
         display.addMarkers(data, mMap);
     }
 }
