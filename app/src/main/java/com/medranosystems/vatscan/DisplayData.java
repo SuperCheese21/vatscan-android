@@ -34,7 +34,7 @@ public class DisplayData {
 
         for (Client c : clients) {
             LatLng location = new LatLng(c.latitude, c.longitude);
-            map.addMarker(new MarkerOptions().position(location).title(c.realname));
+            map.addMarker(new MarkerOptions().position(location).title(c.callsign));
         }
     }
 }

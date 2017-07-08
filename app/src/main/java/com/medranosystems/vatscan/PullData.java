@@ -22,7 +22,6 @@ public class PullData extends AsyncTask<String, Integer, String> {
         this.mProgressBar = p;
     }
 
-    // Do the long-running work in here
     protected String doInBackground(String... s) {
         String contents = "";
 
