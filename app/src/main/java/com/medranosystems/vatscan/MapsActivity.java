@@ -15,7 +15,7 @@ import java.util.TimerTask;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, AsyncResponse {
 
     private GoogleMap mMap;
-    ProgressBar mProgressBar;
+
     public static final String[] URLS = {
             "http://info.vroute.net/vatsim-data.txt",
             "http://data.vattastic.com/vatsim-data.txt",
@@ -32,7 +32,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        mProgressBar = (ProgressBar) findViewById(R.id.loadProgress);
     }
 
     /**
@@ -59,6 +58,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void updateData() {
         final int rand = ThreadLocalRandom.current().nextInt(0, URLS.length);
+        final ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.loadProgress);
         final AsyncResponse response = this;
 
         runOnUiThread(new Runnable() {
@@ -81,11 +81,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void displayData(String rawData) {
         System.out.println("displayData()");
         String[][] data;
-        DisplayData display = new DisplayData();
 
-        data = display.parseData(rawData);
+        data = DisplayData.parseData(rawData);
 
         mMap.clear();
-        display.addMarkers(data, mMap);
+        DisplayData.addMarkers(data, mMap);
     }
 }
