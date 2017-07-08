@@ -47,9 +47,10 @@ public class PullData extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPreExecute() {
+        System.out.println("View.VISIBLE");
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
-    // This is called each time you call publishProgress()
     @Override
     protected void onProgressUpdate(Integer... progress) {
     }

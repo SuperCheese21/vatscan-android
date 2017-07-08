@@ -2,7 +2,6 @@ package com.medranosystems.vatscan;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ProgressBar;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -53,25 +52,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mProgressBar.setVisibility(View.VISIBLE);
-                    }
-                });
                 updateData();
             }
         }, 0, 30000);
     }
 
     private void updateData() {
-        int rand = ThreadLocalRandom.current().nextInt(0, URLS.length);
+        final int rand = ThreadLocalRandom.current().nextInt(0, URLS.length);
+        final AsyncResponse response = this;
 
-        System.out.println("Data server: " + URLS[rand]);
-
-        PullData mPullData = new PullData(mProgressBar);
-        mPullData.delegate = this;
-        mPullData.execute(URLS[rand]);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                PullData mPullData = new PullData(mProgressBar);
+                mPullData.delegate = response;
+                mPullData.execute(URLS[rand]);
+            }
+        });
     }
 
     @Override
