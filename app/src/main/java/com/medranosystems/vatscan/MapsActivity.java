@@ -53,7 +53,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void run() {
                 updateData();
             }
-        }, 0, 30000);
+        }, 0, 60000);
     }
 
     private void updateData() {
@@ -80,11 +80,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void displayData(String rawData) {
         System.out.println("displayData()");
-        String[][] data;
-
-        data = DisplayData.parseData(rawData);
-
-        mMap.clear();
-        DisplayData.addMarkers(data, mMap);
+        Client[] clients = DisplayData.parseData(rawData);
+        DisplayData.addMarkers(clients, mMap);
     }
 }

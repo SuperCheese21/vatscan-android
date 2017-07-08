@@ -16,4 +16,19 @@ public class Pilot extends Client {
     public FlightPlan mFlightPlan;
     public MarkerOptions mMarkerOptions;
 
+    public Pilot(String[] data) {
+        super(data);
+
+        try {
+            this.altitude = Integer.parseInt(data[7]);
+            this.heading = Integer.parseInt(data[38]);
+            this.groundspeed = Integer.parseInt(data[8]);
+        } catch (NumberFormatException ignore) {};
+
+        this.transponder = data[17];
+
+        this.mFlightPlan = new FlightPlan(data);
+        this.mMarkerOptions = new MarkerOptions();
+    }
+
 }
