@@ -4,13 +4,13 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.MapStyleOptions;
 
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,23 +49,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setMapToolbarEnabled(false);
 
         try {
-            // Customise the styling of the base map using a JSON object defined
-            // in a raw resource file.
             boolean success = googleMap.setMapStyle(
-                    MapStyleOptions.loadRawResourceStyle(this, R.raw.style_shades_of_gray)
+                    MapStyleOptions.loadRawResourceStyle(this, R.raw.style_blue_essence)
             );
-
             if (!success) {
                 System.out.println("Style parsing failed.");
             }
         } catch (Resources.NotFoundException e) {
-            System.out.println("Can't find style. Error: " + e.toString());
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Can't find style. Error: " + e.toString(),
+                    Toast.LENGTH_LONG
+            ).show();
         }
 
         Timer t = new Timer();
-
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -93,12 +94,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void processFinish(String output){
         System.out.println("Size: " + output.length());
 
-        displayData(output);
+        DisplayData.displayPilots(output, mMap);
     }
 
-    private void displayData(String rawData) {
-        System.out.println("displayData()");
-        List<Pilot> pilots = DisplayData.parseData(rawData);
-        DisplayData.addPilots(pilots, mMap);
-    }
 }

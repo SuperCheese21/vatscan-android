@@ -14,6 +14,12 @@ import java.util.Objects;
 
 public class DisplayData {
 
+    public static void displayPilots(String rawData, GoogleMap mMap) {
+        System.out.println("displayPilots()");
+        List<Pilot> pilots = parseData(rawData);
+        addPilots(pilots, mMap);
+    }
+
     public static List<Pilot> parseData(String s) {
         String[] clientsRaw = (s.split("!CLIENTS:\n")[1]).split("\n;\n;\n!SERVERS:")[0].split("\n");
         List<Pilot> pilots = new ArrayList<Pilot>();
