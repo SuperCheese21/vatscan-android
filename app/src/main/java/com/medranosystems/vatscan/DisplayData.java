@@ -4,6 +4,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -12,29 +14,31 @@ import java.util.Objects;
 
 public class DisplayData {
 
-    public static Client[] parseData(String s) {
+    public static List<Pilot> parseData(String s) {
         String[] clientsRaw = (s.split("!CLIENTS:\n")[1]).split("\n;\n;\n!SERVERS:")[0].split("\n");
-        Client[] clients = new Client[clientsRaw.length];
+        List<Pilot> pilots = new ArrayList<Pilot>();
 
         for (int i = 0; i < clientsRaw.length; i++) {
             String[] data = clientsRaw[i].split(":");
 
             if (Objects.equals(data[3], "PILOT")) {
-                clients[i] = new Pilot(data);
-            } else if (Objects.equals(data[3], "ATC")) {
-                clients[i] = new Controller(data);
+                pilots.add(new Pilot(data));
             }
         }
 
-        return clients;
+        return pilots;
     }
 
-    public static void addMarkers(Client[] clients, GoogleMap map) {
+    public static void addPilots(List<Pilot> pilots, GoogleMap map) {
         map.clear();
 
-        for (Client c : clients) {
-            LatLng location = new LatLng(c.latitude, c.longitude);
-            map.addMarker(new MarkerOptions().position(location).title(c.callsign));
+        for (Pilot p : pilots) {
+            LatLng location = new LatLng(p.latitude, p.longitude);
+            map.addMarker(new MarkerOptions()
+                    .position(location)
+                    .title(p.callsign)
+                    .snippet(p.realname + "\n")
+            );
         }
     }
 }

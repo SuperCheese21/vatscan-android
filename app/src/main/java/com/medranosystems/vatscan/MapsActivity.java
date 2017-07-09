@@ -1,5 +1,6 @@
 package com.medranosystems.vatscan;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
@@ -7,7 +8,9 @@ import android.widget.ProgressBar;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.MapStyleOptions;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -46,6 +49,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(this, R.raw.style_shades_of_gray)
+            );
+
+            if (!success) {
+                System.out.println("Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            System.out.println("Can't find style. Error: " + e.toString());
+        }
+
         Timer t = new Timer();
 
         t.scheduleAtFixedRate(new TimerTask() {
@@ -80,7 +98,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void displayData(String rawData) {
         System.out.println("displayData()");
-        Client[] clients = DisplayData.parseData(rawData);
-        DisplayData.addMarkers(clients, mMap);
+        List<Pilot> pilots = DisplayData.parseData(rawData);
+        DisplayData.addPilots(pilots, mMap);
     }
 }

@@ -13,7 +13,7 @@ public class Pilot extends Client {
     public int groundspeed;
     public String transponder;
 
-    public FlightPlan mFlightPlan;
+    public FlightPlan flightplan;
     public MarkerOptions mMarkerOptions;
 
     public Pilot(String[] data) {
@@ -27,7 +27,7 @@ public class Pilot extends Client {
 
         this.transponder = data[17];
 
-        this.mFlightPlan = new FlightPlan(data);
+        this.flightplan = new FlightPlan(data);
         this.mMarkerOptions = new MarkerOptions();
     }
 
