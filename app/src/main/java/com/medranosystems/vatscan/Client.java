@@ -1,5 +1,7 @@
 package com.medranosystems.vatscan;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by super on 7/8/2017.
  */
@@ -14,6 +16,7 @@ public class Client {
 
     public double latitude;
     public double longitude;
+    LatLng location;
 
     public Client(String[] data) {
         this.callsign = data[0];
@@ -26,6 +29,8 @@ public class Client {
             this.latitude = Double.parseDouble(data[5]);
             this.longitude = Double.parseDouble(data[6]);
         } catch (NumberFormatException ignored) {};
+
+        this.location = new LatLng(this.latitude, this.longitude);
     }
 
 }

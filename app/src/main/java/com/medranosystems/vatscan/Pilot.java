@@ -1,5 +1,7 @@
 package com.medranosystems.vatscan;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
@@ -14,9 +16,10 @@ public class Pilot extends Client {
     public String transponder;
 
     public FlightPlan flightplan;
-    public MarkerOptions mMarkerOptions;
+    public MarkerOptions markerOptions;
+    public Marker marker;
 
-    public Pilot(String[] data) {
+    public Pilot(String[] data, GoogleMap map) {
         super(data);
 
         try {
@@ -26,9 +29,12 @@ public class Pilot extends Client {
         } catch (NumberFormatException ignore) {};
 
         this.transponder = data[17];
-
         this.flightplan = new FlightPlan(data);
-        this.mMarkerOptions = new MarkerOptions();
+        this.markerOptions = new MarkerOptions()
+                .position(location)
+                .title(this.callsign)
+                .snippet(this.realname);
+        this.marker = map.addMarker(this.markerOptions);
     }
 
 }
