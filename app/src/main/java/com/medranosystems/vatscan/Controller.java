@@ -27,13 +27,13 @@ public class Controller extends Client {
             this.visualrange = Integer.parseInt(data[19]);
         } catch (NumberFormatException ignore) {};
 
-        this.circle = map.addCircle(new CircleOptions()
+        /*this.circle = map.addCircle(new CircleOptions()
                 .center(location)
                 .radius(this.visualrange * 600)
                 .strokeColor(Color.argb(80, 0, 0, 255))
                 .strokeWidth(3)
                 .fillColor(Color.argb(40, 0, 0, 255))
-        );
+        );*/
     }
 
 }
