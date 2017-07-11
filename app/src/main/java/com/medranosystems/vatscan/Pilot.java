@@ -31,31 +31,15 @@ public class Pilot extends Client {
         } catch (NumberFormatException ignore) {}
         this.transponder = data[17];
         this.flightplan = new FlightPlan(data);
-        this.icon = getAircraftType(this.flightplan.aircraft);
+        this.icon = DisplayData.getAircraftType(this.flightplan.aircraft);
         this.markerOptions = new MarkerOptions()
                 .position(location)
                 .title(this.callsign)
-                .snippet(this.flightplan.aircraft)
+                .snippet(this.realname)
                 .icon(BitmapDescriptorFactory.fromResource(this.icon))
                 .anchor(0.5f, 0.5f)
                 .rotation(this.heading);
         this.marker = map.addMarker(this.markerOptions);
-    }
-
-    public static int getAircraftType(String code) {
-        String formattedCode = code.toLowerCase();
-        String[][] types = DisplayData.aircraftTypes;
-
-        for (int i = 0; i < types.length; i++) {
-            for (int j = 0; j < types[i].length; j++) {
-                if (formattedCode.contains(types[i][j])) {
-                    if (i == 0) return R.drawable.narrowbody;
-                    else if (i == 1) return R.drawable.widebody;
-                }
-            }
-        }
-
-        return R.drawable.ga;
     }
 
     public void removeMarker() {
