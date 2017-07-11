@@ -13,6 +13,10 @@ import java.util.Objects;
 public class DisplayData {
 
     public static List<Client> clients;
+    public static String[][] aircraftTypes = {
+        { "b71", "b72", "b73", "b75", "a318", "a319", "a32", "cr", "e1", "md8", "md9" },
+        { "b74", "b76", "b77", "b78", "a30", "a31", "a33", "a34", "a35", "a38", "il8", "il9" }
+    };
 
     public static void updateData(String s, GoogleMap map) {
         String[] clientsRaw = (s.split("!CLIENTS:\n")[1]).split("\n;\n;\n!SERVERS:")[0].split("\n");
