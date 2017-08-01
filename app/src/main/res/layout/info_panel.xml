@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:background="#1b252b">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center|top"
-        android:text="@string/sliding_panel"
-        android:textSize="16sp" />
+        android:id="@+id/dep_airport"
+        android:layout_width="134dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="@string/dep_airport"
+        android:textColor="@android:color/white"
+        android:textSize="50sp"
+        android:layout_alignBaseline="@+id/editText2"
+        android:layout_alignBottom="@+id/editText2"
+        android:layout_toEndOf="@+id/imageView" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/editText2"
+        android:layout_width="134dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:text="@string/arr_airport"
+        android:textColor="@android:color/white"
+        android:textSize="50sp"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:adjustViewBounds="true"
+        android:maxHeight="42dp"
+        android:maxWidth="42dp"
+        android:rotation="90"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/narrowbody"
+        android:layout_alignTop="@+id/dep_airport"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

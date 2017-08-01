@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
-    sothree:umanoPanelHeight="68dp"
-    sothree:umanoShadowHeight="4dp">
+    sothree:umanoPanelHeight="10dp"
+    sothree:umanoShadowHeight="4dp"
+    sothree:umanoFadeColor="@android:color/transparent">
 
     <include layout="@layout/maps_layout"/>
     <include layout="@layout/info_panel"/>

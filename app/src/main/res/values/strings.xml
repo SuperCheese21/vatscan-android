@@ -3,4 +3,6 @@
     <string name="title_activity_maps">VATSCAN</string>
     <string name="main_content">Main Content</string>
     <string name="sliding_panel">Flight Info will go here</string>
+    <string name="dep_airport">KDEN</string>
+    <string name="arr_airport">KLGA</string>
 </resources>
