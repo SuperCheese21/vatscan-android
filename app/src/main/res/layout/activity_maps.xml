@@ -1,26 +1,13 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:orientation="vertical">
+    android:gravity="bottom"
+    sothree:umanoPanelHeight="68dp"
+    sothree:umanoShadowHeight="4dp">
 
-    <ProgressBar
-        android:id="@+id/loadProgress"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_marginBottom="-6.7dp"
-        android:layout_marginTop="-6.7dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true" />
+    <include layout="@layout/maps_layout"/>
+    <include layout="@layout/info_panel"/>
 
-    <fragment
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.medranosystems.vatscan.MapsActivity" />
-
-</LinearLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
