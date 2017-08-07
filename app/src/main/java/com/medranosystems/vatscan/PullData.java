@@ -46,7 +46,6 @@ public class PullData extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPreExecute() {
-        System.out.println("View.VISIBLE");
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
@@ -56,7 +55,6 @@ public class PullData extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        System.out.println("View.GONE");
         mProgressBar.setVisibility(View.GONE);
         delegate.processFinish(s);
     }

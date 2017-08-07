@@ -27,6 +27,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             "http://wazzup.flightoperationssystem.com/vatsim/vatsim-data.txt"
     };
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);

@@ -12,12 +12,12 @@ import com.google.android.gms.maps.model.CircleOptions;
 
 public class Controller extends Client {
 
-    public float frequency;
-    public int facilitytype;
-    public int visualrange;
+    private float frequency;
+    private int facilitytype;
+    private int visualrange;
 
-    public CircleOptions circleOptions;
-    public Circle circle;
+    private CircleOptions circleOptions;
+    private Circle circle;
 
     public Controller(String[] data, GoogleMap map) {
         super(data);
@@ -37,8 +37,41 @@ public class Controller extends Client {
         this.circle = map.addCircle(this.circleOptions);
     }
 
+
     public void removeMarker() {
         this.circle.remove();
+    }
+
+    public float getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(float frequency) {
+        this.frequency = frequency;
+    }
+
+    public int getFacilitytype() {
+        return facilitytype;
+    }
+
+    public void setFacilitytype(int facilitytype) {
+        this.facilitytype = facilitytype;
+    }
+
+    public int getVisualrange() {
+        return visualrange;
+    }
+
+    public void setVisualrange(int visualrange) {
+        this.visualrange = visualrange;
+    }
+
+    public CircleOptions getCircleOptions() {
+        return circleOptions;
+    }
+
+    public void setCircleOptions(CircleOptions circleOptions) {
+        this.circleOptions = circleOptions;
     }
 
 }

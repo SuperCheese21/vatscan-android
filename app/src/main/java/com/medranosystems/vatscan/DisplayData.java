@@ -1,6 +1,12 @@
 package com.medranosystems.vatscan;
 
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
+
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Marker;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +19,7 @@ import java.util.Objects;
 public class DisplayData {
 
     public static List<Client> clients;
+
     private static String[][] aircraftTypes = {
         { "b71", "b72", "b73", "b75", "a318", "a319", "a32", "cr", "e1", "md8", "md9" },
         { "b74", "b76", "b77", "b78", "a30", "a31", "a33", "a34", "a35", "a38", "il8", "il9" }
@@ -24,8 +31,8 @@ public class DisplayData {
 
         map.clear();
 
-        for (int i = 0; i < clientsRaw.length; i++) {
-            String[] data = clientsRaw[i].split(":");
+        for (String c : clientsRaw) {
+            String[] data = c.split(":");
 
             if (Objects.equals(data[3], "PILOT")) {
                 clients.add(new Pilot(data, map));

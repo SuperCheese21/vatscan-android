@@ -33,4 +33,68 @@ public class Client {
         this.location = new LatLng(this.latitude, this.longitude);
     }
 
+    public String getCallsign() {
+        return this.callsign;
+    }
+
+    public void setCallsign(String c) {
+        this.callsign = c;
+    }
+
+    public int getCid() {
+        return this.cid;
+    }
+
+    public void setCid(int i) {
+        this.cid = i;
+    }
+
+    public String getRealname() {
+        return this.realname;
+    }
+
+    public void setRealname(String n) {
+        this.realname = n;
+    }
+
+    public String getClienttype() {
+        return this.clienttype;
+    }
+
+    public void setClienttype(String t) {
+        this.clienttype = t;
+    }
+
+    public int getRating() {
+        return this.rating;
+    }
+
+    public void setRating(int r) {
+        this.rating = r;
+    }
+
+    public double getLatitude() {
+        return this.latitude;
+    }
+
+    public void setLatitude(double l) {
+        this.latitude = l;
+    }
+
+    public double getLongitude() {
+        return this.longitude;
+    }
+
+    public void setLongitude(double l) {
+        this.longitude = l;
+    }
+
+    public LatLng getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(LatLng l) {
+        this.location = l;
+    }
+
 }
