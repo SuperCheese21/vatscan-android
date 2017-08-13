@@ -17,13 +17,16 @@ import java.util.Objects;
 
 public class DisplayData {
 
-    private static List<Client> clients;
+    private List<Client> clients;
     private SlidingUpPanelLayout panel;
     private TextViews textViews;
+    private Marker activeMarker;
 
     public DisplayData(Activity activity) {
+        final DisplayData displayData = this;
         this.textViews = new TextViews(activity);
         this.panel = (SlidingUpPanelLayout) activity.findViewById(R.id.sliding_layout);
+
         panel.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
@@ -32,7 +35,7 @@ public class DisplayData {
             @Override
             public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
                 if (newState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                    textViews.clear();
+                    textViews.clear(displayData);
                 }
             }
         });
@@ -68,10 +71,13 @@ public class DisplayData {
             public boolean onMarkerClick(Marker marker) {
                 for (Client c : clients) {
                     if (Objects.equals(c.getClienttype(), "PILOT")) {
-                        Pilot p = (Pilot) c;
-                        if (marker.equals(p.getMarker())) {
+                        Pilot pilot = (Pilot) c;
+                        if (marker.equals(pilot.getMarker())) {
+                            if (activeMarker != null)
+                                activeMarker.setAlpha(1.0f);
+                            activeMarker = marker;
                             panel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-                            textViews.update(p);
+                            textViews.update(pilot, marker);
                         }
                     }
                 }
@@ -95,6 +101,14 @@ public class DisplayData {
         return R.drawable.ga;
     }
 
+    public List<Client> getClients() {
+        return this.clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+
     public SlidingUpPanelLayout getPanel() {
         return this.panel;
     }
@@ -109,6 +123,14 @@ public class DisplayData {
 
     public void setTextViews(TextViews textViews) {
         this.textViews = textViews;
+    }
+
+    public Marker getActiveMarker() {
+        return this.activeMarker;
+    }
+
+    public void setActiveMarker(Marker activeMarker) {
+        this.activeMarker = activeMarker;
     }
 
 }

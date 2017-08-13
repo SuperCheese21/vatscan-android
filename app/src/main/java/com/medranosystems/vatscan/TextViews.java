@@ -3,6 +3,8 @@ package com.medranosystems.vatscan;
 import android.app.Activity;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.Marker;
+
 import java.util.Objects;
 
 /**
@@ -29,8 +31,9 @@ public class TextViews {
         this.id = (TextView) this.activity.findViewById(R.id.client_id);
     }
 
-    public void update(final Pilot pilot) {
+    public void update(final Pilot pilot, Marker m) {
         final TextViews textViews = this;
+        m.setAlpha(2.0f);
 
         final String depAirport, arrAirport, callsign, name, id;
         if (!Objects.equals(pilot.getFlightplan().getDepairport(), ""))
@@ -61,8 +64,10 @@ public class TextViews {
         });
     }
 
-    public void clear() {
+    public void clear(DisplayData d) {
         final TextViews textViews = this;
+        d.getActiveMarker().setAlpha(1.0f);
+        d.setActiveMarker(null);
 
         activity.runOnUiThread(new Runnable() {
             @Override

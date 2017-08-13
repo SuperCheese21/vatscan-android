@@ -52,7 +52,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 displayData.getPanel().setPanelState(
                         SlidingUpPanelLayout.PanelState.COLLAPSED
                 );
-                displayData.getTextViews().clear();
+                displayData.getTextViews().clear(displayData);
             }
         });
 
