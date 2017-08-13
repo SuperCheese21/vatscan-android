@@ -1,6 +1,10 @@
 package com.medranosystems.vatscan;
 
+import android.app.Activity;
+
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Marker;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +14,23 @@ import java.util.Objects;
  * Created by super on 7/4/2017.
  */
 
-public class DisplayData extends MapsActivity {
+public class DisplayData {
 
     public static List<Client> clients;
+    public SlidingUpPanelLayout panel;
+    public TextViews textViews;
+
+    public DisplayData(Activity activity) {
+        textViews = new TextViews(activity);
+        panel = (SlidingUpPanelLayout) activity.findViewById(R.id.sliding_layout);
+    }
 
     private static String[][] aircraftTypes = {
         { "b71", "b72", "b73", "b75", "a318", "a319", "a32", "cr", "e1", "md8", "md9" },
         { "b74", "b76", "b77", "b78", "a30", "a31", "a33", "a34", "a35", "a38", "il8", "il9" }
     };
 
-    public static void updateData(String s, GoogleMap map) {
+    public void updateData(String s, GoogleMap map) {
         String[] clientsRaw = (s.split("!CLIENTS:\n")[1]).split("\n;\n;\n!SERVERS:")[0].split("\n");
         clients = new ArrayList<>();
 
@@ -35,24 +46,27 @@ public class DisplayData extends MapsActivity {
             }
         }
 
+        addMarkerListeners(map);
     }
 
-    private static boolean updateClient(String[] data, GoogleMap map) {
-        String callsign = data[0];
-
-        for (Client client : clients) {
-            if (Objects.equals(client.getCallsign(), callsign)) {
-                if (Objects.equals(client.getClienttype(), "PILOT")) {
-                    Pilot p = (Pilot) client;
-                } else if (Objects.equals(client.getClienttype(), "ATC")) {
-                    Controller c = (Controller) client;
+    private void addMarkerListeners(GoogleMap map) {
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                System.out.println("onMarkerClick()");
+                for (Client c : clients) {
+                    if (Objects.equals(c.getClienttype(), "PILOT")) {
+                        Pilot p = (Pilot) c;
+                        if (marker.equals(p.getMarker())) {
+                            panel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                            textViews.update(p);
+                            return true;
+                        }
+                    }
                 }
-
-                return true;
+                return false;
             }
-        }
-
-        return false;
+        });
     }
 
     public static int getAircraftType(String code) {

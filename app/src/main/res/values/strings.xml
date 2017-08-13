@@ -3,9 +3,9 @@
     <string name="title_activity_maps">VATSCAN</string>
     <string name="main_content">Main Content</string>
     <string name="sliding_panel">Flight Info will go here</string>
-    <string name="dep_airport">KLGA</string>
-    <string name="arr_airport">KDEN</string>
-    <string name="flight_num">UAL745</string>
-    <string name="client_name">Ethan Shields KPDX</string>
-    <string name="client_id">1277596</string>
+    <string name="dep_airport" />
+    <string name="arr_airport" />
+    <string name="flight_num" />
+    <string name="client_name" />
+    <string name="client_id" />
 </resources>

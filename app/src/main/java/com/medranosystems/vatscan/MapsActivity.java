@@ -21,7 +21,7 @@ import java.util.TimerTask;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, AsyncResponse {
 
     private GoogleMap mMap;
-    public TextViews textViews;
+    private DisplayData displayData;
 
     public static final String[] URLS = {
             "http://info.vroute.net/vatsim-data.txt",
@@ -40,8 +40,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        textViews = new TextViews(this);
-        textViews.updateTest("UAL556","KDEN", "KLGA", "Ethan Shields KPDX", "1277596");
+        this.displayData = new DisplayData(this);
     }
 
     @Override
@@ -90,7 +89,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void processFinish(String output){
-        DisplayData.updateData(output, mMap);
+        displayData.updateData(output, mMap);
     }
 
 }

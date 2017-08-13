@@ -54,7 +54,7 @@ public class TextViews {
                 t.depairport.setText(pilot.getFlightplan().getDepairport());
                 t.arrairport.setText(pilot.getFlightplan().getDestairport());
                 t.name.setText(pilot.getRealname());
-                t.id.setText(pilot.getCid());
+                t.id.setText(Integer.toString(pilot.getCid()));
             }
         });
     }
