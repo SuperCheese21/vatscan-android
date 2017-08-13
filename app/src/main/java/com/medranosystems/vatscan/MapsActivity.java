@@ -41,6 +41,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         this.displayData = new DisplayData(this);
+
     }
 
     @Override
