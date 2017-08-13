@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
-    android:layout_height="540dp"
+    android:layout_height="550dp"
     android:gravity="bottom"
     sothree:umanoPanelHeight="0dp"
     sothree:umanoShadowHeight="4dp"

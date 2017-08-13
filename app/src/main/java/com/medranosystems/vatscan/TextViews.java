@@ -24,7 +24,7 @@ public class TextViews {
     public TextViews(Activity activity) {
         this.activity = activity;
 
-        this.callsign = (TextView) this.activity.findViewById(R.id.flight_num);
+        this.callsign = (TextView) this.activity.findViewById(R.id.callsign);
         this.depairport = (TextView) this.activity.findViewById(R.id.dep_airport);
         this.arrairport = (TextView) this.activity.findViewById(R.id.arr_airport);
         this.name = (TextView) this.activity.findViewById(R.id.client_name);
@@ -66,15 +66,17 @@ public class TextViews {
 
     public void clear(DisplayData d) {
         final TextViews textViews = this;
-        d.getActiveMarker().setAlpha(1.0f);
-        d.setActiveMarker(null);
-
+        Marker m = d.getActiveMarker();
+        if (m != null) {
+            m.setAlpha(1.0f);
+            d.setActiveMarker(null);
+        }
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                textViews.callsign.setText("");
                 textViews.depairport.setText("");
                 textViews.arrairport.setText("");
+                textViews.callsign.setText("");
                 textViews.name.setText("");
                 textViews.id.setText("");
             }

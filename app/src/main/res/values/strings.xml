@@ -5,7 +5,7 @@
     <string name="sliding_panel">Flight Info will go here</string>
     <string name="dep_airport" />
     <string name="arr_airport" />
-    <string name="flight_num" />
+    <string name="callsign" />
     <string name="client_name" />
     <string name="client_id" />
 </resources>
