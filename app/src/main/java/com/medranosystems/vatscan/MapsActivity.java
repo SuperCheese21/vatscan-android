@@ -53,7 +53,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     MapStyleOptions.loadRawResourceStyle(this, R.raw.style_blue_essence)
             );
             if (!success) {
-                System.out.println("Style parsing failed.");
+                Toast.makeText(
+                        getApplicationContext(),
+                        "Style parsing failed.",
+                        Toast.LENGTH_LONG
+                ).show();
             }
         } catch (Resources.NotFoundException e) {
             Toast.makeText(

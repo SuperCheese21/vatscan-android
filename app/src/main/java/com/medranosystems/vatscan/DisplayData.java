@@ -53,14 +53,13 @@ public class DisplayData {
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                System.out.println("onMarkerClick()");
                 for (Client c : clients) {
                     if (Objects.equals(c.getClienttype(), "PILOT")) {
                         Pilot p = (Pilot) c;
                         if (marker.equals(p.getMarker())) {
+                            marker.showInfoWindow();
                             panel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                             textViews.update(p);
-                            return true;
                         }
                     }
                 }
