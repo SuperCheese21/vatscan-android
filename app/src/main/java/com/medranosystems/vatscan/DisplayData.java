@@ -1,6 +1,7 @@
 package com.medranosystems.vatscan;
 
 import android.app.Activity;
+import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
@@ -16,13 +17,25 @@ import java.util.Objects;
 
 public class DisplayData {
 
-    public static List<Client> clients;
-    public SlidingUpPanelLayout panel;
-    public TextViews textViews;
+    private static List<Client> clients;
+    private SlidingUpPanelLayout panel;
+    private TextViews textViews;
 
     public DisplayData(Activity activity) {
-        textViews = new TextViews(activity);
-        panel = (SlidingUpPanelLayout) activity.findViewById(R.id.sliding_layout);
+        this.textViews = new TextViews(activity);
+        this.panel = (SlidingUpPanelLayout) activity.findViewById(R.id.sliding_layout);
+        panel.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+            }
+
+            @Override
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+                if (newState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                    textViews.clear();
+                }
+            }
+        });
     }
 
     private static String[][] aircraftTypes = {
@@ -57,7 +70,6 @@ public class DisplayData {
                     if (Objects.equals(c.getClienttype(), "PILOT")) {
                         Pilot p = (Pilot) c;
                         if (marker.equals(p.getMarker())) {
-                            marker.showInfoWindow();
                             panel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                             textViews.update(p);
                         }
@@ -81,6 +93,22 @@ public class DisplayData {
         }
 
         return R.drawable.ga;
+    }
+
+    public SlidingUpPanelLayout getPanel() {
+        return this.panel;
+    }
+
+    public void setPanel(SlidingUpPanelLayout panel) {
+        this.panel = panel;
+    }
+
+    public TextViews getTextViews() {
+        return this.textViews;
+    }
+
+    public void setTextViews(TextViews textViews) {
+        this.textViews = textViews;
     }
 
 }

@@ -4,15 +4,14 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-
-import org.w3c.dom.Text;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Timer;
@@ -20,10 +19,10 @@ import java.util.TimerTask;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, AsyncResponse {
 
-    private GoogleMap mMap;
+    private GoogleMap map;
     private DisplayData displayData;
 
-    public static final String[] URLS = {
+    private static final String[] URLS = {
             "http://info.vroute.net/vatsim-data.txt",
             "http://data.vattastic.com/vatsim-data.txt",
             "http://vatsim.aircharts.org/vatsim-data.txt",
@@ -41,13 +40,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         this.displayData = new DisplayData(this);
-
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        mMap.getUiSettings().setMapToolbarEnabled(false);
+        map = googleMap;
+        map.getUiSettings().setMapToolbarEnabled(false);
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                displayData.getPanel().setPanelState(
+                        SlidingUpPanelLayout.PanelState.COLLAPSED
+                );
+                displayData.getTextViews().clear();
+            }
+        });
 
         try {
             boolean success = googleMap.setMapStyle(
@@ -94,7 +101,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void processFinish(String output){
-        displayData.updateData(output, mMap);
+        displayData.updateData(output, map);
+    }
+
+    public GoogleMap getMap() {
+        return this.map;
+    }
+
+    public void setMap(GoogleMap map) {
+        this.map = map;
+    }
+
+    public DisplayData getDisplayData() {
+        return this.displayData;
+    }
+
+    public void setDisplayData(DisplayData displayData) {
+        this.displayData = displayData;
     }
 
 }

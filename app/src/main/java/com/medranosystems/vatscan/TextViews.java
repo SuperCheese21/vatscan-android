@@ -3,19 +3,21 @@ package com.medranosystems.vatscan;
 import android.app.Activity;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 /**
  * Created by super on 8/12/2017.
  */
 
 public class TextViews {
 
-    public Activity activity;
+    private Activity activity;
 
-    public TextView callsign;
-    public TextView depairport;
-    public TextView arrairport;
-    public TextView name;
-    public TextView id;
+    private TextView callsign;
+    private TextView depairport;
+    private TextView arrairport;
+    private TextView name;
+    private TextView id;
 
     public TextViews(Activity activity) {
         this.activity = activity;
@@ -30,14 +32,46 @@ public class TextViews {
     public void update(final Pilot pilot) {
         final TextViews textViews = this;
 
+        final String depAirport, arrAirport, callsign, name, id;
+        if (!Objects.equals(pilot.getFlightplan().getDepairport(), ""))
+            depAirport = pilot.getFlightplan().getDepairport();
+        else depAirport = "????";
+        if (!Objects.equals(pilot.getFlightplan().getDestairport(), ""))
+            arrAirport = pilot.getFlightplan().getDestairport();
+        else arrAirport = "????";
+        if (!Objects.equals(pilot.getCallsign(), ""))
+            callsign = pilot.getCallsign();
+        else callsign = "";
+        if (!Objects.equals(pilot.getRealname(), ""))
+            name = pilot.getRealname();
+        else name = "";
+        if (!Objects.equals(Integer.toString(pilot.getCid()), ""))
+            id = Integer.toString(pilot.getCid());
+        else id = "";
+
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                textViews.callsign.setText(pilot.getCallsign());
-                textViews.depairport.setText(pilot.getFlightplan().getDepairport());
-                textViews.arrairport.setText(pilot.getFlightplan().getDestairport());
-                textViews.name.setText(pilot.getRealname());
-                textViews.id.setText(Integer.toString(pilot.getCid()));
+                textViews.depairport.setText(depAirport);
+                textViews.arrairport.setText(arrAirport);
+                textViews.callsign.setText(callsign);
+                textViews.name.setText(name);
+                textViews.id.setText(id);
+            }
+        });
+    }
+
+    public void clear() {
+        final TextViews textViews = this;
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                textViews.callsign.setText("");
+                textViews.depairport.setText("");
+                textViews.arrairport.setText("");
+                textViews.name.setText("");
+                textViews.id.setText("");
             }
         });
     }
