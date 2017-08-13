@@ -1,12 +1,6 @@
 package com.medranosystems.vatscan;
 
-import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
-
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.Marker;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +10,7 @@ import java.util.Objects;
  * Created by super on 7/4/2017.
  */
 
-public class DisplayData {
+public class DisplayData extends MapsActivity {
 
     public static List<Client> clients;
 
@@ -40,16 +34,17 @@ public class DisplayData {
                 clients.add(new Controller(data, map));
             }
         }
+
     }
 
     private static boolean updateClient(String[] data, GoogleMap map) {
         String callsign = data[0];
 
         for (Client client : clients) {
-            if (Objects.equals(client.callsign, callsign)) {
-                if (Objects.equals(client.clienttype, "PILOT")) {
+            if (Objects.equals(client.getCallsign(), callsign)) {
+                if (Objects.equals(client.getClienttype(), "PILOT")) {
                     Pilot p = (Pilot) client;
-                } else if (Objects.equals(client.clienttype, "ATC")) {
+                } else if (Objects.equals(client.getClienttype(), "ATC")) {
                     Controller c = (Controller) client;
                 }
 

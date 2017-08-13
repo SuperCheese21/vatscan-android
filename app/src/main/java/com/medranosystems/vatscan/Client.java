@@ -6,17 +6,17 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by super on 7/8/2017.
  */
 
-public class Client {
+public class Client extends MapsActivity {
 
-    public String callsign;
-    public int cid;
-    public String realname;
-    public String clienttype;
-    public int rating;
+    protected String callsign;
+    protected int cid;
+    protected String realname;
+    protected String clienttype;
+    protected int rating;
 
-    public double latitude;
-    public double longitude;
-    LatLng location;
+    protected double latitude;
+    protected double longitude;
+    protected LatLng location;
 
     public Client(String[] data) {
         this.callsign = data[0];

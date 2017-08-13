@@ -4,12 +4,15 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.MapStyleOptions;
+
+import org.w3c.dom.Text;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Timer;
@@ -18,6 +21,7 @@ import java.util.TimerTask;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, AsyncResponse {
 
     private GoogleMap mMap;
+    public TextViews textViews;
 
     public static final String[] URLS = {
             "http://info.vroute.net/vatsim-data.txt",
@@ -31,9 +35,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        textViews = new TextViews(this);
+        textViews.updateTest("UAL556","KDEN", "KLGA", "Ethan Shields KPDX", "1277596");
     }
 
     @Override

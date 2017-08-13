@@ -1,13 +1,9 @@
 package com.medranosystems.vatscan;
 
-import android.widget.TextView;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by super on 7/8/2017.
@@ -27,6 +23,8 @@ public class Pilot extends Client {
 
     public Pilot(String[] data, GoogleMap map) {
         super(data);
+        final Pilot p = this;
+        final Marker m = this.marker;
 
         try {
             this.altitude = Integer.parseInt(data[7]);
@@ -37,13 +35,25 @@ public class Pilot extends Client {
         this.flightplan = new FlightPlan(data);
         this.icon = DisplayData.getAircraftType(this.getFlightplan().getAircraft());
         this.markerOptions = new MarkerOptions()
-                .position(location)
-                .title(this.callsign)
-                .snippet(this.realname)
+                .position(this.getLocation())
+                .title(this.getCallsign())
+                .snippet(this.getRealname())
                 .icon(BitmapDescriptorFactory.fromResource(this.icon))
                 .anchor(0.5f, 0.5f)
                 .rotation(this.heading);
         this.marker = map.addMarker(this.markerOptions);
+
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if (marker.equals(m)) {
+                    System.out.println("onMarkerClick()");
+                    //textViews.update(p);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     public int getAltitude() {
