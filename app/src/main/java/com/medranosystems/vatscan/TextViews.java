@@ -1,6 +1,7 @@
 package com.medranosystems.vatscan;
 
 import android.app.Activity;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.Marker;
@@ -67,10 +68,13 @@ public class TextViews {
     public void clear(DisplayData d) {
         final TextViews textViews = this;
         Marker m = d.getActiveMarker();
+
         if (m != null) {
             m.setAlpha(1.0f);
             d.setActiveMarker(null);
         }
+        d.getSeekBar().setEnabled(false);
+        d.getSeekBar().getThumb().setAlpha(0);
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {

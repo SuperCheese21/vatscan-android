@@ -5,6 +5,6 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/sliding_panel"/>
-    <include layout="@layout/flight_info"/>
+    <include layout="@layout/footer"/>
 
 </LinearLayout>

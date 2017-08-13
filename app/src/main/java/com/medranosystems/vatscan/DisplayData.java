@@ -1,7 +1,9 @@
 package com.medranosystems.vatscan;
 
 import android.app.Activity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.SeekBar;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
@@ -21,11 +23,22 @@ public class DisplayData {
     private SlidingUpPanelLayout panel;
     private TextViews textViews;
     private Marker activeMarker;
+    private SeekBar seekBar;
 
     public DisplayData(Activity activity) {
         final DisplayData displayData = this;
         this.textViews = new TextViews(activity);
         this.panel = (SlidingUpPanelLayout) activity.findViewById(R.id.sliding_layout);
+        this.seekBar = (SeekBar) activity.findViewById(R.id.seekBar);
+
+        seekBar.getThumb().setAlpha(0);
+        seekBar.setEnabled(false);
+        seekBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
 
         panel.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
@@ -77,6 +90,8 @@ public class DisplayData {
                                 activeMarker.setAlpha(1.0f);
                             activeMarker = marker;
                             panel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                            seekBar.getThumb().setAlpha(100);
+                            seekBar.setEnabled(true);
                             textViews.update(pilot, marker);
                         }
                     }
@@ -131,6 +146,14 @@ public class DisplayData {
 
     public void setActiveMarker(Marker activeMarker) {
         this.activeMarker = activeMarker;
+    }
+
+    public SeekBar getSeekBar() {
+        return this.seekBar;
+    }
+
+    public void setSeekBar(SeekBar seekBar) {
+        this.seekBar = seekBar;
     }
 
 }

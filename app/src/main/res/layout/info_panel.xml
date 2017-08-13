@@ -1,66 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="#1b252b">
+    android:layout_height="180dp">
 
-    <ImageView
-        android:id="@+id/plane_icon"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="3dp"
-        android:adjustViewBounds="true"
-        android:maxHeight="42dp"
-        android:maxWidth="42dp"
-        android:rotation="90"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/narrowbody"
-        android:layout_centerHorizontal="true" />
+    <include layout="@layout/basic_info"/>
+    <include layout="@layout/detailed_info"/>
 
-    <TextView
-        android:id="@+id/arr_airport"
-        android:layout_width="171dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/dep_airport"
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/arr_airport"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/white"
-        android:textSize="56sp" />
-
-    <TextView
-        android:id="@+id/dep_airport"
-        android:layout_width="171dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/dep_airport"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        android:textSize="56sp" />
-
-    <TextView
-        android:id="@+id/client_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/client_id"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:layout_below="@+id/plane_icon"
-        android:layout_toEndOf="@+id/plane_icon" />
-
-    <TextView
-        android:id="@+id/client_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/plane_icon"
-        android:layout_marginEnd="205dp"
-        android:layout_toStartOf="@+id/arr_airport"
-        android:text="@string/client_name"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
-</RelativeLayout>
+</LinearLayout>
