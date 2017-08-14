@@ -1,66 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@color/colorPrimary">
+    android:layout_height="80dp"
+    android:background="@color/colorPrimary"
+    android:weightSum="1">
 
-    <ImageView
-        android:id="@+id/plane_icon"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="3dp"
-        android:adjustViewBounds="true"
-        android:maxHeight="42dp"
-        android:maxWidth="42dp"
-        android:rotation="90"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/narrowbody"
-        android:layout_centerHorizontal="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
 
-    <TextView
-        android:id="@+id/arr_airport"
-        android:layout_width="171dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/dep_airport"
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/arr_airport"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/white"
-        android:textSize="56sp" />
+        <ImageView
+            android:id="@+id/plane_icon"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:rotation="90"
+            app:srcCompat="@drawable/narrowbody" />
 
-    <TextView
-        android:id="@+id/dep_airport"
-        android:layout_width="171dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/dep_airport"
-        android:textAlignment="viewEnd"
-        android:textColor="@android:color/white"
-        android:textSize="56sp" />
+        <TextView
+            android:id="@+id/dep_airport"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@+id/plane_icon"
+            android:fontFamily="sans-serif-condensed"
+            android:includeFontPadding="false"
+            android:text="@string/dep_airport"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/white"
+            android:textSize="55sp" />
 
-    <TextView
-        android:id="@+id/client_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/client_id"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:layout_below="@+id/plane_icon"
-        android:layout_toEndOf="@+id/plane_icon" />
+        <TextView
+            android:id="@+id/arr_airport"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="5dp"
+            android:includeFontPadding="false"
+            android:layout_toEndOf="@+id/plane_icon"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/arr_airport"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/white"
+            android:textSize="55sp" />
 
-    <TextView
-        android:id="@+id/client_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/plane_icon"
-        android:layout_marginEnd="205dp"
-        android:layout_toStartOf="@+id/arr_airport"
-        android:text="@string/client_name"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
-</RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/client_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/client_name"
+            android:textAlignment="viewEnd"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/client_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingStart="25dp"
+            android:text="@string/client_id"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>
