@@ -27,16 +27,7 @@ public class Controller extends Client {
             this.facilitytype = Integer.parseInt(data[18]);
             this.visualrange = Integer.parseInt(data[19]);
         } catch (NumberFormatException ignore) {}
-
-        this.circleOptions = new CircleOptions()
-                .center(location)
-                .radius(this.visualrange * 600)
-                .strokeColor(Color.argb(80, 0, 0, 255))
-                .strokeWidth(3)
-                .fillColor(Color.argb(40, 0, 0, 255));
-        this.circle = map.addCircle(this.circleOptions);
     }
-
 
     public void removeMarker() {
         this.circle.remove();
@@ -64,14 +55,6 @@ public class Controller extends Client {
 
     public void setVisualrange(int visualrange) {
         this.visualrange = visualrange;
-    }
-
-    public CircleOptions getCircleOptions() {
-        return circleOptions;
-    }
-
-    public void setCircleOptions(CircleOptions circleOptions) {
-        this.circleOptions = circleOptions;
     }
 
 }

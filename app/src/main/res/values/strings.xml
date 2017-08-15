@@ -3,9 +3,17 @@
     <string name="title_activity_maps">VATSCAN</string>
     <string name="main_content">Main Content</string>
     <string name="sliding_panel">Flight Info will go here</string>
-    <string name="dep_airport">KPDX</string>
-    <string name="arr_airport">KSFO</string>
-    <string name="callsign">MMM9999</string>
-    <string name="client_name">Ethan Shields KPDX</string>
-    <string name="client_id">1277596</string>
+    <string name="aircraft_label">Aircraft</string>
+    <string name="dep_airport" />
+    <string name="arr_airport" />
+    <string name="callsign" />
+    <string name="client_name" />
+    <string name="client_id" />
+    <string name="aircraft" />
+    <string name="altitude" />
+    <string name="heading" />
+    <string name="speed" />
+    <string name="dist_flown_label">Flown</string>
+    <string name="dist_remaining_label">Remaining</string>
+    <string name="dist_remaining" />
 </resources>

@@ -1,10 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:background="@color/colorPrimaryMedium">
 
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/aircraft_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:tint="@color/colorAccent"
+                    app:srcCompat="@drawable/ic_aircraft_24dp" />
+
+                <TextView
+                    android:id="@+id/aircraft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/aircraft_icon"
+                    android:text="@string/aircraft"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    tools:text="M/B738/L" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/dist_flown_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="@string/dist_flown_label"
+                    android:textColor="@android:color/white"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/dist_flown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/dist_flown_label"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    tools:text="235 nm" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/dist_remaining_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="@string/dist_remaining_label"
+                    android:textColor="@android:color/white"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/dist_remaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/dist_remaining_label"
+                    android:text="@string/dist_remaining"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    tools:text="1135 nm" />
+            </RelativeLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/altitude_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/colorAccent"
+                    app:srcCompat="@drawable/ic_altitude_24dp" />
+
+                <TextView
+                    android:id="@+id/altitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/altitude_icon"
+                    android:text="@string/altitude"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    tools:text="36000 ft" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/heading_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:tint="@color/colorAccent"
+                    app:srcCompat="@drawable/ic_heading_24dp" />
+
+                <TextView
+                    android:id="@+id/heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/heading_icon"
+                    android:text="@string/heading"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    tools:text="270" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/speed_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:tint="@color/colorAccent"
+                    app:srcCompat="@drawable/ic_speed_24dp" />
+
+                <TextView
+                    android:id="@+id/speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/speed_icon"
+                    android:text="@string/speed"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    tools:text="485 kts" />
+            </RelativeLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+        </TableRow>
+
+    </TableLayout>
 
 </RelativeLayout>
