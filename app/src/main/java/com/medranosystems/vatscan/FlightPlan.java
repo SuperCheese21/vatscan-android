@@ -36,14 +36,14 @@ public class FlightPlan {
         try {
             this.tascruise = Integer.parseInt(data[10]);
             this.altitude = Integer.parseInt(data[12]);
-            this.depairport_lat = Double.parseDouble(data[31]);
-            this.depairport_lon = Double.parseDouble(data[32]);
-            this.destairport_lat = Double.parseDouble(data[33]);
-            this.destairport_lon = Double.parseDouble(data[34]);
             this.deptime = Integer.parseInt(data[22]);
             this.actdeptime = Integer.parseInt(data[23]);
             this.hrsenroute = Integer.parseInt(data[24]);
             this.minenroute = Integer.parseInt(data[25]);
+            this.depairport_lat = Double.parseDouble(data[31]);
+            this.depairport_lon = Double.parseDouble(data[32]);
+            this.destairport_lat = Double.parseDouble(data[33]);
+            this.destairport_lon = Double.parseDouble(data[34]);
         } catch (NumberFormatException ignore) {}
     }
 
@@ -54,7 +54,6 @@ public class FlightPlan {
     public void setAircraft(String aircraft) {
         this.aircraft = aircraft;
     }
-
 
     public int getTascruise() {
         return tascruise;

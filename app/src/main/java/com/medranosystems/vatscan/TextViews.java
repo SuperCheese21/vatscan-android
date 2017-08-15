@@ -3,12 +3,9 @@ package com.medranosystems.vatscan;
 import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.Marker;
-
-import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -29,6 +26,8 @@ public class TextViews {
     private TextView altitude;
     private TextView heading;
     private TextView speed;
+    private TextView distFlown;
+    private TextView distRemaining;
 
     private ImageView headingIcon;
 
@@ -44,6 +43,8 @@ public class TextViews {
         this.altitude = (TextView) this.activity.findViewById(R.id.altitude);
         this.heading = (TextView) this.activity.findViewById(R.id.heading);
         this.speed = (TextView) this.activity.findViewById(R.id.speed);
+        this.distFlown = (TextView) this.activity.findViewById(R.id.dist_flown);
+        this.distRemaining = (TextView) this.activity.findViewById(R.id.dist_remaining);
 
         this.headingIcon = (ImageView) this.activity.findViewById(R.id.heading_icon);
     }
@@ -52,8 +53,9 @@ public class TextViews {
         final TextViews textViews = this;
         m.setAlpha(2.0f);
 
-        final float headingFloat;
-        final String depAirport, arrAirport, callsign, name, id, aircraft, altitude, heading, speed;
+        final float headingFloat = pilot.getHeading();
+        final String depAirport, arrAirport, callsign, name, id, aircraft, altitude, heading, speed, distFlown, distRemaining;
+
         if (!Objects.equals(pilot.getFlightplan().getDepairport(), ""))
             depAirport = pilot.getFlightplan().getDepairport();
         else depAirport = "????";
@@ -82,7 +84,8 @@ public class TextViews {
             speed = Integer.toString(pilot.getGroundspeed()) + " kts";
         else speed = "";
 
-        headingFloat = pilot.getHeading();
+        distFlown = Integer.toString(pilot.getFlownDistance()) + " nm";
+        distRemaining = Integer.toString(pilot.getRemainingDistance()) + " nm";
 
         activity.runOnUiThread(new Runnable() {
             @Override
@@ -97,6 +100,8 @@ public class TextViews {
                 textViews.heading.setText(heading);
                 textViews.speed.setText(speed);
                 textViews.headingIcon.setRotation(headingFloat);
+                textViews.distFlown.setText(distFlown);
+                textViews.distRemaining.setText(distRemaining);
             }
         });
     }
@@ -122,6 +127,8 @@ public class TextViews {
                 textViews.altitude.setText("");
                 textViews.heading.setText("");
                 textViews.speed.setText("");
+                textViews.distFlown.setText("");
+                textViews.distRemaining.setText("");
 
                 textViews.headingIcon.setRotation(0);
             }

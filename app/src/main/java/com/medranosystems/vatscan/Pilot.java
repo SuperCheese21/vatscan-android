@@ -2,6 +2,7 @@ package com.medranosystems.vatscan;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -38,6 +39,26 @@ public class Pilot extends Client {
                 .anchor(0.5f, 0.5f)
                 .rotation(this.heading);
         this.marker = map.addMarker(this.markerOptions);
+    }
+
+    public int getFlownDistance() {
+        double lat = flightplan.getDepairport_lat();
+        double lon = flightplan.getDepairport_lon();
+
+        LatLng origin = new LatLng(lat, lon);
+        double distance = FlightCalc.getGCDistance(origin, this.location);
+
+        return (int) distance;
+    }
+
+    public int getRemainingDistance() {
+        double lat = flightplan.getDestairport_lat();
+        double lon = flightplan.getDestairport_lon();
+
+        LatLng destination = new LatLng(lat, lon);
+        double distance = FlightCalc.getGCDistance(this.location, destination);
+
+        return (int) distance;
     }
 
     public int getAltitude() {
