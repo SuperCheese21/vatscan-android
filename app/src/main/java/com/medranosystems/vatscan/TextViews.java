@@ -1,6 +1,7 @@
 package com.medranosystems.vatscan;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -73,8 +74,7 @@ public class TextViews {
             m.setAlpha(1.0f);
             d.setActiveMarker(null);
         }
-        d.getSeekBar().setEnabled(false);
-        d.getSeekBar().getThumb().setAlpha(0);
+        d.getSeekBar().setVisibility(View.INVISIBLE);
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {

@@ -9,24 +9,25 @@
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="250dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
         android:progress="50"
         android:progressBackgroundTintMode="@color/colorAccent"
         android:splitTrack="false"
-        android:thumb="@drawable/thumb" />
+        android:thumb="@drawable/thumb"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/callsign"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:maxLines="1"
         android:text="@string/callsign"
         android:textAlignment="viewStart"
         android:textColor="@android:color/white"
-        android:textSize="25sp"
-        android:layout_toStartOf="@+id/seekBar" />
+        android:textSize="28sp" />
 
 </RelativeLayout>

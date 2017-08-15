@@ -31,8 +31,7 @@ public class DisplayData {
         this.panel = (SlidingUpPanelLayout) activity.findViewById(R.id.sliding_layout);
         this.seekBar = (SeekBar) activity.findViewById(R.id.seekBar);
 
-        seekBar.getThumb().setAlpha(0);
-        seekBar.setEnabled(false);
+        seekBar.setVisibility(View.INVISIBLE);
         seekBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -90,8 +89,7 @@ public class DisplayData {
                                 activeMarker.setAlpha(1.0f);
                             activeMarker = marker;
                             panel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-                            seekBar.getThumb().setAlpha(100);
-                            seekBar.setEnabled(true);
+                            seekBar.setVisibility(View.VISIBLE);
                             textViews.update(pilot, marker);
                         }
                     }

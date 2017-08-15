@@ -5,6 +5,8 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/sliding_panel" />
-    <include layout="@layout/footer" />
+    <include layout="@layout/footer"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
