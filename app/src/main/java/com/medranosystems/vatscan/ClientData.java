@@ -13,12 +13,12 @@ import java.net.URLConnection;
  * Created by super on 7/4/2017.
  */
 
-public class PullData extends AsyncTask<String, Integer, String> {
+public class ClientData extends AsyncTask<String, Integer, String> {
 
     public AsyncResponse delegate = null;
     private ProgressBar mProgressBar;
 
-    public PullData(ProgressBar p){
+    public ClientData(ProgressBar p){
         this.mProgressBar = p;
     }
 

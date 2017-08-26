@@ -27,6 +27,7 @@ public class Controller extends Client {
             this.facilitytype = Integer.parseInt(data[18]);
             this.visualrange = Integer.parseInt(data[19]);
         } catch (NumberFormatException ignore) {}
+
     }
 
     public void removeMarker() {

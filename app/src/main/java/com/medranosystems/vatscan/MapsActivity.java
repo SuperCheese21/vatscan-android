@@ -20,6 +20,7 @@ import java.util.TimerTask;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, AsyncResponse {
 
     private GoogleMap map;
+    private MapData data;
     private DisplayData displayData;
 
     private static final String[] URLS = {
@@ -40,6 +41,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         this.displayData = new DisplayData(this);
+        this.data = new MapData(this);
     }
 
     @Override
@@ -92,9 +94,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                PullData mPullData = new PullData(mProgressBar);
-                mPullData.delegate = response;
-                mPullData.execute(URLS[rand]);
+                ClientData data = new ClientData(mProgressBar);
+                data.delegate = response;
+                data.execute(URLS[rand]);
             }
         });
     }
@@ -118,6 +120,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void setDisplayData(DisplayData displayData) {
         this.displayData = displayData;
+    }
+
+    public MapData getMapData() {
+        return this.data;
+    }
+
+    public void setMapData(MapData data) {
+        this.data = data;
     }
 
 }
