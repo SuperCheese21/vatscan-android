@@ -15,47 +15,39 @@ public class Pilot extends Client {
     private int altitude;
     private int heading;
     private int groundspeed;
-    private String transponder;
 
     private FlightPlan flightplan;
     private int icon;
     private MarkerOptions markerOptions;
     private Marker marker;
 
-    public Pilot(String[] data, GoogleMap map) {
-        super(data);
+    public Pilot(String[] clientData, GoogleMap map, MapData mapData) {
+        super(clientData);
 
         try {
-            this.altitude = Integer.parseInt(data[7]);
-            this.heading = Integer.parseInt(data[38]);
-            this.groundspeed = Integer.parseInt(data[8]);
+            this.altitude = Integer.parseInt(clientData[7]);
+            this.heading = Integer.parseInt(clientData[38]);
+            this.groundspeed = Integer.parseInt(clientData[8]);
         } catch (NumberFormatException ignore) {}
-        this.transponder = data[17];
-        this.flightplan = new FlightPlan(data);
+        this.flightplan = new FlightPlan(clientData, mapData);
         this.icon = DisplayData.getAircraftType(this.getFlightplan().getAircraft());
-        this.markerOptions = new MarkerOptions()
+        this.marker = map.addMarker(new MarkerOptions()
                 .position(this.getLocation())
                 .icon(BitmapDescriptorFactory.fromResource(this.icon))
                 .anchor(0.5f, 0.5f)
-                .rotation(this.heading);
-        this.marker = map.addMarker(this.markerOptions);
+                .rotation(this.heading)
+        );
     }
 
     public int getFlownDistance() {
-        double lat = flightplan.getDepairport_lat();
-        double lon = flightplan.getDepairport_lon();
-
-        LatLng origin = new LatLng(lat, lon);
+        LatLng origin = flightplan.getDepairport_coords();
         double distance = FlightCalc.getGCDistance(origin, this.location);
 
         return (int) distance;
     }
 
     public int getRemainingDistance() {
-        double lat = flightplan.getDestairport_lat();
-        double lon = flightplan.getDestairport_lon();
-
-        LatLng destination = new LatLng(lat, lon);
+        LatLng destination = flightplan.getDestairport_coords();
         double distance = FlightCalc.getGCDistance(this.location, destination);
 
         return (int) distance;
@@ -85,14 +77,6 @@ public class Pilot extends Client {
         this.groundspeed = groundspeed;
     }
 
-    public String getTransponder() {
-        return transponder;
-    }
-
-    public void setTransponder(String transponder) {
-        this.transponder = transponder;
-    }
-
     public FlightPlan getFlightplan() {
         return flightplan;
     }
@@ -107,14 +91,6 @@ public class Pilot extends Client {
 
     public void setIcon(int icon) {
         this.icon = icon;
-    }
-
-    public MarkerOptions getMarkerOptions() {
-        return markerOptions;
-    }
-
-    public void setMarkerOptions(MarkerOptions markerOptions) {
-        this.markerOptions = markerOptions;
     }
 
     public Marker getMarker() {

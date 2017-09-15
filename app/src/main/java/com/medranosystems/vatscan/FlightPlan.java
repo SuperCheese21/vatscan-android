@@ -1,5 +1,7 @@
 package com.medranosystems.vatscan;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by super on 7/8/2017.
  */
@@ -11,25 +13,21 @@ public class FlightPlan {
     private int altitude;
     private String flighttype;
     private String route;
-    private String remarks;
 
     private String depairport;
     private String destairport;
-    private double depairport_lat;
-    private double depairport_lon;
-    private double destairport_lat;
-    private double destairport_lon;
+    private LatLng depairport_coords;
+    private LatLng destairport_coords;
 
     private int deptime;
     private int actdeptime;
     private int hrsenroute;
     private int minenroute;
 
-    public FlightPlan(String[] data) {
+    public FlightPlan(String[] data, MapData mapData) {
         this.aircraft = data[9];
         this.flighttype = data[22];
         this.route = data[30];
-        this.remarks = data[29];
         this.depairport = data[11];
         this.destairport = data[13];
 
@@ -40,11 +38,10 @@ public class FlightPlan {
             this.actdeptime = Integer.parseInt(data[23]);
             this.hrsenroute = Integer.parseInt(data[24]);
             this.minenroute = Integer.parseInt(data[25]);
-            this.depairport_lat = Double.parseDouble(data[31]);
-            this.depairport_lon = Double.parseDouble(data[32]);
-            this.destairport_lat = Double.parseDouble(data[33]);
-            this.destairport_lon = Double.parseDouble(data[34]);
         } catch (NumberFormatException ignore) {}
+
+        this.depairport_coords = mapData.getAirportCoords(this.depairport);
+        this.destairport_coords = mapData.getAirportCoords(this.destairport);
     }
 
     public String getAircraft() {
@@ -87,14 +84,6 @@ public class FlightPlan {
         this.route = route;
     }
 
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
     public String getDepairport() {
         return depairport;
     }
@@ -109,38 +98,6 @@ public class FlightPlan {
 
     public void setDestairport(String destairport) {
         this.destairport = destairport;
-    }
-
-    public double getDepairport_lat() {
-        return depairport_lat;
-    }
-
-    public void setDepairport_lat(double depairport_lat) {
-        this.depairport_lat = depairport_lat;
-    }
-
-    public double getDepairport_lon() {
-        return depairport_lon;
-    }
-
-    public void setDepairport_lon(double depairport_lon) {
-        this.depairport_lon = depairport_lon;
-    }
-
-    public double getDestairport_lat() {
-        return destairport_lat;
-    }
-
-    public void setDestairport_lat(double destairport_lat) {
-        this.destairport_lat = destairport_lat;
-    }
-
-    public double getDestairport_lon() {
-        return destairport_lon;
-    }
-
-    public void setDestairport_lon(double destairport_lon) {
-        this.destairport_lon = destairport_lon;
     }
 
     public int getDeptime() {
@@ -173,5 +130,21 @@ public class FlightPlan {
 
     public void setMinenroute(int minenroute) {
         this.minenroute = minenroute;
+    }
+
+    public LatLng getDepairport_coords() {
+        return depairport_coords;
+    }
+
+    public void setDepairport_coords(LatLng depairport_coords) {
+        this.depairport_coords = depairport_coords;
+    }
+
+    public LatLng getDestairport_coords() {
+        return destairport_coords;
+    }
+
+    public void setDestairport_coords(LatLng destairport_coords) {
+        this.destairport_coords = destairport_coords;
     }
 }

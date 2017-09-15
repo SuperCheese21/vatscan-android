@@ -58,19 +58,19 @@ public class DisplayData {
         { "b74", "b76", "b77", "b78", "a30", "a31", "a33", "a34", "a35", "a38", "il8", "il9" }
     };
 
-    public void updateData(String s, GoogleMap map) {
+    public void updateData(String s, GoogleMap map, MapData mapData) {
         String[] clientsRaw = (s.split("!CLIENTS:\n")[1]).split("\n;\n;\n!SERVERS:")[0].split("\n");
         clients = new ArrayList<>();
 
         map.clear();
 
         for (String c : clientsRaw) {
-            String[] data = c.split(":");
+            String[] clientData = c.split(":");
 
-            if (Objects.equals(data[3], "PILOT")) {
-                clients.add(new Pilot(data, map));
-            } else if (Objects.equals(data[3], "ATC")) {
-                clients.add(new Controller(data, map));
+            if (Objects.equals(clientData[3], "PILOT")) {
+                clients.add(new Pilot(clientData, map, mapData));
+            } else if (Objects.equals(clientData[3], "ATC")) {
+                clients.add(new Controller(clientData, map, mapData));
             }
         }
 

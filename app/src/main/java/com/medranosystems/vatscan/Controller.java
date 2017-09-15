@@ -16,10 +16,7 @@ public class Controller extends Client {
     private int facilitytype;
     private int visualrange;
 
-    private CircleOptions circleOptions;
-    private Circle circle;
-
-    public Controller(String[] data, GoogleMap map) {
+    public Controller(String[] data, GoogleMap map, MapData mapData) {
         super(data);
 
         try {
@@ -28,10 +25,6 @@ public class Controller extends Client {
             this.visualrange = Integer.parseInt(data[19]);
         } catch (NumberFormatException ignore) {}
 
-    }
-
-    public void removeMarker() {
-        this.circle.remove();
     }
 
     public float getFrequency() {
