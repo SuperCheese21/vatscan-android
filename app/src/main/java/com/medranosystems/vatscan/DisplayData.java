@@ -7,6 +7,7 @@ import android.widget.SeekBar;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.Polyline;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class DisplayData {
     private TextViews textViews;
     private Marker activeMarker;
     private SeekBar seekBar;
+    private Polyline lineFlown, lineRemaining;
 
     public DisplayData(Activity activity) {
         final DisplayData displayData = this;
@@ -77,7 +79,7 @@ public class DisplayData {
         addMarkerListeners(map);
     }
 
-    private void addMarkerListeners(GoogleMap map) {
+    private void addMarkerListeners(final GoogleMap map) {
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -87,14 +89,21 @@ public class DisplayData {
                         if (marker.equals(pilot.getMarker())) {
                             if (activeMarker != null)
                                 activeMarker.setAlpha(1.0f);
+                            if (lineFlown != null)
+                                lineFlown.remove();
+                            if (lineRemaining != null)
+                                lineRemaining.remove();
                             activeMarker = marker;
                             panel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                             seekBar.setVisibility(View.VISIBLE);
+                            seekBar.setProgress(pilot.getFlightProgress());
+                            lineFlown = map.addPolyline(pilot.getLineFlown());
+                            lineRemaining = map.addPolyline(pilot.getLineRemaining());
                             textViews.update(pilot, marker);
                         }
                     }
                 }
-                return false;
+                return true;
             }
         });
     }
@@ -154,4 +163,19 @@ public class DisplayData {
         this.seekBar = seekBar;
     }
 
+    public Polyline getLineFlown() {
+        return lineFlown;
+    }
+
+    public void setLineFlown(Polyline lineFlown) {
+        this.lineFlown = lineFlown;
+    }
+
+    public Polyline getLineRemaining() {
+        return lineRemaining;
+    }
+
+    public void setLineRemaining(Polyline lineRemaining) {
+        this.lineRemaining = lineRemaining;
+    }
 }

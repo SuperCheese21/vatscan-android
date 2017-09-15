@@ -106,15 +106,19 @@ public class TextViews {
         });
     }
 
-    public void clear(DisplayData d) {
+    public void clear(DisplayData displayData) {
         final TextViews textViews = this;
-        Marker m = d.getActiveMarker();
+        Marker m = displayData.getActiveMarker();
+
+        System.out.println("clear()");
 
         if (m != null) {
             m.setAlpha(1.0f);
-            d.setActiveMarker(null);
+            displayData.setActiveMarker(null);
         }
-        d.getSeekBar().setVisibility(View.INVISIBLE);
+        displayData.getSeekBar().setVisibility(View.INVISIBLE);
+        displayData.getLineFlown().remove();
+        displayData.getLineRemaining().remove();
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
