@@ -57,13 +57,16 @@ public class MapData {
         double lat = 0.0, lon = 0.0;
         String latString = "", lonString = "";
 
-        try {
-            JSONObject airport = airports.getJSONObject(code);
+        if (airports.has(code)) {
+            JSONObject airport = null;
+            try {
+                airport = airports.getJSONObject(code);
 
-            latString = airport.getString("latitude");
-            lonString = airport.getString("longitude");
-        } catch (JSONException e) {
-            e.printStackTrace();
+                latString = airport.getString("latitude");
+                lonString = airport.getString("longitude");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         if (!Objects.equals(latString, "")) {

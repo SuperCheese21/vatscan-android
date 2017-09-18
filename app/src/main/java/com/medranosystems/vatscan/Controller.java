@@ -1,10 +1,8 @@
 package com.medranosystems.vatscan;
 
-import android.graphics.Color;
-
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolygonOptions;
 
 /**
  * Created by super on 7/8/2017.
@@ -16,6 +14,9 @@ public class Controller extends Client {
     private int facilitytype;
     private int visualrange;
 
+    private LatLng[] points;
+    private PolygonOptions area;
+
     public Controller(String[] data, GoogleMap map, MapData mapData) {
         super(data);
 
@@ -24,6 +25,8 @@ public class Controller extends Client {
             this.facilitytype = Integer.parseInt(data[18]);
             this.visualrange = Integer.parseInt(data[19]);
         } catch (NumberFormatException ignore) {}
+
+        this.area = new PolygonOptions();
 
     }
 
