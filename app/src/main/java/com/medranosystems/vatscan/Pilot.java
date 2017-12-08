@@ -34,45 +34,50 @@ public class Pilot extends Client {
             this.heading = Integer.parseInt(clientData[38]);
             this.groundspeed = Integer.parseInt(clientData[8]);
         } catch (NumberFormatException ignore) {}
+
         this.flightplan = new FlightPlan(clientData, mapData);
-        this.lineFlown = new PolylineOptions()
-            .add(this.flightplan.getDepairport_coords(), this.getLocation())
-            .width(3)
-            .color(Color.GREEN)
-            .geodesic(true);
-        this.lineRemaining = new PolylineOptions()
-            .add(this.getLocation(), this.flightplan.getDestairport_coords())
-            .width(3)
-            .color(Color.RED)
-            .geodesic(true);
         this.icon = DisplayData.getAircraftType(this.getFlightplan().getAircraft());
-        this.marker = map.addMarker(new MarkerOptions()
-                .position(this.getLocation())
+        this.lineFlown = addFlightPath(this.flightplan.getDepairport_coords(), this.location, Color.GREEN);
+        this.lineRemaining = addFlightPath(this.location, this.flightplan.getDestairport_coords(), Color.RED);
+        this.marker = addMarker(map);
+    }
+
+    private Marker addMarker(GoogleMap map) {
+        return map.addMarker(new MarkerOptions()
+                .position(this.location)
                 .icon(BitmapDescriptorFactory.fromResource(this.icon))
                 .anchor(0.5f, 0.5f)
                 .rotation(this.heading)
         );
     }
 
-    public int getFlownDistance() {
-        LatLng origin = flightplan.getDepairport_coords();
-        double distance = FlightCalc.getGCDistance(origin, this.location);
-
-        return (int) distance;
+    private PolylineOptions addFlightPath(LatLng start, LatLng end, int color) {
+        return new PolylineOptions()
+            .add(start, end)
+            .width(3)
+            .color(color)
+            .geodesic(true);
     }
 
-    public int getRemainingDistance() {
-        LatLng destination = flightplan.getDestairport_coords();
-        double distance = FlightCalc.getGCDistance(this.location, destination);
+    public double getDistFlown() {
+        LatLng lat1 = flightplan.getDepairport_coords();
+        LatLng lat2 = this.location;
 
-        return (int) distance;
+        return FlightCalc.getGCDistance(lat1, lat2);
+    }
+
+    public double getDistRemaining() {
+        LatLng lat1 = this.location;
+        LatLng lat2 = flightplan.getDestairport_coords();
+
+        return FlightCalc.getGCDistance(lat1, lat2);
     }
 
     public int getFlightProgress() {
-        int distanceFlown = this.getFlownDistance();
-        int distanceRemaining = this.getRemainingDistance();
+        double distFlown = getDistFlown();
+        double distRemaining = getDistRemaining();
 
-        double progress = (double) distanceFlown / (distanceFlown + distanceRemaining);
+        double progress = distFlown / (distFlown + distRemaining);
         System.out.println(progress);
 
         return (int) (100 * progress);
@@ -141,4 +146,5 @@ public class Pilot extends Client {
     public void setLineRemaining(PolylineOptions lineRemaining) {
         this.lineRemaining = lineRemaining;
     }
+
 }

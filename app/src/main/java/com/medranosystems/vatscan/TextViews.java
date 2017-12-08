@@ -84,8 +84,8 @@ public class TextViews {
             speed = Integer.toString(pilot.getGroundspeed()) + " kts";
         else speed = "";
 
-        distFlown = Integer.toString(pilot.getFlownDistance()) + " nm";
-        distRemaining = Integer.toString(pilot.getRemainingDistance()) + " nm";
+        distFlown = Integer.toString((int) pilot.getDistFlown()) + " nm";
+        distRemaining = Integer.toString((int) pilot.getDistRemaining()) + " nm";
 
         activity.runOnUiThread(new Runnable() {
             @Override
