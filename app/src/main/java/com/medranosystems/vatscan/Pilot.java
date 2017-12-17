@@ -7,7 +7,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 /**
@@ -33,7 +32,9 @@ public class Pilot extends Client {
             this.altitude = Integer.parseInt(clientData[7]);
             this.heading = Integer.parseInt(clientData[38]);
             this.groundspeed = Integer.parseInt(clientData[8]);
-        } catch (NumberFormatException ignore) {}
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
 
         this.flightplan = new FlightPlan(clientData, mapData);
         this.icon = DisplayData.getAircraftType(this.getFlightplan().getAircraft());

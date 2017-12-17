@@ -1,6 +1,7 @@
 package com.medranosystems.vatscan;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,6 +50,12 @@ public class TextViews {
         this.headingIcon = (ImageView) this.activity.findViewById(R.id.heading_icon);
     }
 
+    /**
+     * Update text fields with flight data
+     *
+     * @param pilot Active pilot data
+     * @param m     Active marker
+     */
     public void update(final Pilot pilot, Marker m) {
         final TextViews textViews = this;
         m.setAlpha(2.0f);
@@ -108,17 +115,26 @@ public class TextViews {
 
     public void clear(DisplayData displayData) {
         final TextViews textViews = this;
+
+        // Get active marker
         Marker m = displayData.getActiveMarker();
 
-        System.out.println("clear()");
+        Log.i("DATA", "clear()");
 
+        // Remove emphasis from marker
         if (m != null) {
             m.setAlpha(1.0f);
             displayData.setActiveMarker(null);
         }
+
+        // Hide flight progress bar
         displayData.getSeekBar().setVisibility(View.INVISIBLE);
+
+        // Remove flight paths
         displayData.getLineFlown().remove();
         displayData.getLineRemaining().remove();
+
+        // Remove flight data from info panel
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {

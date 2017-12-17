@@ -1,6 +1,7 @@
 package com.medranosystems.vatscan;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -17,35 +18,47 @@ public class ClientData extends AsyncTask<String, Integer, String> {
 
     public AsyncResponse delegate = null;
     private ProgressBar mProgressBar;
+    private static final String TAG = "DATA";
 
     public ClientData(ProgressBar p){
         this.mProgressBar = p;
     }
 
+    @Override
     protected String doInBackground(String... s) {
-        String contents = "";
+        StringBuilder contents = new StringBuilder();
 
         try {
+            // Initiate URL connection
             URL url = new URL(s[0]);
             URLConnection connection = url.openConnection();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
+            // Initiate new Buffered Reader to receive input stream
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(connection.getInputStream())
+            );
+
+            // Build string
             String line;
             while ((line = reader.readLine()) != null) {
-                contents += (line + "\n");
+                contents.append(line).append("\n");
             }
+
+            // Close buffered reader
             reader.close();
-            System.out.println("Data fetch successful");
+
+            Log.i(TAG,"Data fetch successful");
         } catch(Exception e) {
             e.printStackTrace();
-            System.out.println("Data fetch failed");
+            Log.e(TAG,"Data fetch failed");
         }
 
-        return contents;
+        return contents.toString();
     }
 
     @Override
     protected void onPreExecute() {
+        // Show loading bar before update
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
@@ -55,6 +68,7 @@ public class ClientData extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String s) {
+        // Hide loading bar when update is complete
         mProgressBar.setVisibility(View.GONE);
         delegate.processFinish(s);
     }

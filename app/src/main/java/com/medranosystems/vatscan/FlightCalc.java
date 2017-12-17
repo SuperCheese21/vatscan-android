@@ -8,8 +8,16 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class FlightCalc {
 
+    // Radius of the earth in nautical miles
     public static double R = 3440.06;
 
+    /**
+     * Calculates the great circle distance between two points
+     *
+     * @param loc1  First point
+     * @param loc2  Second point
+     * @return      Distance in nautical miles
+     */
     public static double getGCDistance(LatLng loc1, LatLng loc2) {
         double lat1 = Math.toRadians(loc1.latitude);
         double lat2 = Math.toRadians(loc2.latitude);

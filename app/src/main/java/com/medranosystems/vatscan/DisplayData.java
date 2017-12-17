@@ -33,6 +33,7 @@ public class DisplayData {
         this.panel = (SlidingUpPanelLayout) activity.findViewById(R.id.sliding_layout);
         this.seekBar = (SeekBar) activity.findViewById(R.id.seekBar);
 
+        // Disable manual control of progress bar
         seekBar.setVisibility(View.INVISIBLE);
         seekBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -41,6 +42,7 @@ public class DisplayData {
             }
         });
 
+        // Clear text from panel when collapsed manually
         panel.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
@@ -55,17 +57,28 @@ public class DisplayData {
         });
     }
 
+    // Widebody and narrowbody aircraft substrings
     private static String[][] aircraftTypes = {
         { "b71", "b72", "b73", "b75", "a318", "a319", "a32", "cr", "e1", "md8", "md9" },
         { "b74", "b76", "b77", "b78", "a30", "a31", "a33", "a34", "a35", "a38", "il8", "il9" }
     };
 
+    /**
+     * Parses and organizes raw client data from vatsim data text file
+     *
+     * @param s         Raw text data
+     * @param map       Google map object
+     * @param mapData   Airport coords data
+     */
     public void updateData(String s, GoogleMap map, MapData mapData) {
+        // Extract client data
         String[] clientsRaw = (s.split("!CLIENTS:\n")[1]).split("\n;\n;\n!SERVERS:")[0].split("\n");
-        clients = new ArrayList<>();
 
+        // Remove everything from map
         map.clear();
 
+        // Create new arraylist of clients
+        clients = new ArrayList<>();
         for (String c : clientsRaw) {
             String[] clientData = c.split(":");
 
@@ -76,29 +89,51 @@ public class DisplayData {
             }
         }
 
+        // Add an onclick listener for each marker on the map
         addMarkerListeners(map);
     }
 
+    /**
+     * Adds an onclick listener for each marker on the map
+     *
+     * @param map Google map object
+     */
     private void addMarkerListeners(final GoogleMap map) {
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 for (Client c : clients) {
+
+                    // Check if client is a pilot
                     if (Objects.equals(c.getClienttype(), "PILOT")) {
                         Pilot pilot = (Pilot) c;
+
+                        // Check if clicked marker is the current pilot
                         if (marker.equals(pilot.getMarker())) {
+
+                            // Removes flight paths of previous focused aircraft
                             if (activeMarker != null)
                                 activeMarker.setAlpha(1.0f);
                             if (lineFlown != null)
                                 lineFlown.remove();
                             if (lineRemaining != null)
                                 lineRemaining.remove();
+
+                            // Sets active marker to clicked marker
                             activeMarker = marker;
+
+                            // Pulls up sliding panel
                             panel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+
+                            // Shows and sets progress of flight progress bar
                             seekBar.setVisibility(View.VISIBLE);
                             seekBar.setProgress(pilot.getFlightProgress());
+
+                            // Shows flight paths
                             lineFlown = map.addPolyline(pilot.getLineFlown());
                             lineRemaining = map.addPolyline(pilot.getLineRemaining());
+
+                            // Updates flight data on panel
                             textViews.update(pilot, marker);
                         }
                     }
@@ -108,6 +143,12 @@ public class DisplayData {
         });
     }
 
+    /**
+     * Returns the proper icon given the aircraft's identifier
+     *
+     * @param code  ICAO aircraft identifier
+     * @return      Icon ID
+     */
     public static int getAircraftType(String code) {
         String formattedCode = code.toLowerCase();
 

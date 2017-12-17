@@ -38,7 +38,9 @@ public class FlightPlan {
             this.actdeptime = Integer.parseInt(data[23]);
             this.hrsenroute = Integer.parseInt(data[24]);
             this.minenroute = Integer.parseInt(data[25]);
-        } catch (NumberFormatException ignore) {}
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
 
         this.depairport_coords = mapData.getAirportCoords(this.depairport);
         this.destairport_coords = mapData.getAirportCoords(this.destairport);

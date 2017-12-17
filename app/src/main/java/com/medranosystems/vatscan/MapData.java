@@ -21,22 +21,26 @@ public class MapData {
 
     private Context context;
     public JSONObject airports;
-    public JSONObject firs;
 
     public MapData(Context c) {
         this.context = c;
 
         try {
             this.airports = new JSONObject(loadJSON("airports_min.json"));
-            this.firs = new JSONObject(loadJSON("firs_min.json"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
 
+    /**
+     * Gets contents of file in assets library
+     *
+     * @param file  File name
+     * @return      File contents
+     */
     private String loadJSON(String file) {
-        String json = "";
+        String contents = "";
         try {
             InputStream mInputStream = context.getAssets().open(file);
 
@@ -45,14 +49,20 @@ public class MapData {
 
             mInputStream.read(buffer);
             mInputStream.close();
-            json = new String(buffer, "UTF-8");
+            contents = new String(buffer, "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return json;
+        return contents;
     }
 
+    /**
+     * Gets the latitude and longitude of an airport
+     *
+     * @param code  ICAO airport identifier
+     * @return      Google Maps Lat/Lon object
+     */
     public LatLng getAirportCoords(String code) {
         double lat = 0.0, lon = 0.0;
         String latString = "", lonString = "";
@@ -77,28 +87,6 @@ public class MapData {
         }
 
         return new LatLng(lat, lon);
-    }
-
-    public LatLng[] getFirBoundary(String code) {
-        LatLng[] coords = {};
-
-        try {
-            JSONArray mJSONArray = firs.getJSONArray(code);
-
-            coords = new LatLng[mJSONArray.length()];
-            for (int i = 0; i < mJSONArray.length(); i++) {
-                JSONObject mJSONObject = mJSONArray.getJSONObject(i);
-
-                double lat = Double.parseDouble(mJSONObject.getString("lat"));
-                double lon = Double.parseDouble(mJSONObject.getString("lon"));
-
-                coords[i] = new LatLng(lat, lon);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return coords;
     }
 
 }

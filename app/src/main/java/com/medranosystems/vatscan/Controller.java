@@ -14,9 +14,6 @@ public class Controller extends Client {
     private int facilitytype;
     private int visualrange;
 
-    private LatLng[] points;
-    private PolygonOptions area;
-
     public Controller(String[] data, GoogleMap map, MapData mapData) {
         super(data);
 
@@ -24,10 +21,9 @@ public class Controller extends Client {
             this.frequency = Float.parseFloat(data[4]);
             this.facilitytype = Integer.parseInt(data[18]);
             this.visualrange = Integer.parseInt(data[19]);
-        } catch (NumberFormatException ignore) {}
-
-        this.area = new PolygonOptions();
-
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
 
     public float getFrequency() {

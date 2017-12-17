@@ -28,9 +28,11 @@ public class Client {
             this.rating = Integer.parseInt(data[16]);
             this.latitude = Double.parseDouble(data[5]);
             this.longitude = Double.parseDouble(data[6]);
-        } catch (NumberFormatException ignored) {}
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
 
-        this.location = new LatLng(this.latitude, this.longitude);
+        this.location = new LatLng(latitude, longitude);
     }
 
     public String getCallsign() {
